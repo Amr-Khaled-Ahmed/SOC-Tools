@@ -1,0 +1,7 @@
+# Core app works with zero dependencies (stdlib tkinter/email only).
+# Install these for full functionality:
+requests>=2.31      # online IP/VirusTotal reputation lookups
+oletools>=0.60      # accurate VBA macro extraction from Office attachments
+pypdf>=4.0          # PDF structure inspection (OpenAction, encryption, etc.)
+tkinterdnd2>=0.3.0  # drag-and-drop .eml files onto the GUI (optional, GUI degrades gracefully without it)
+tkhtmlview>=1.0.0   # optional inline HTML preview inside the GUI

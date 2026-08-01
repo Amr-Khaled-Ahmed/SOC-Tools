@@ -1,0 +1,23 @@
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments & Virtual Envs
+.venv/
+venv/
+ENV/
+
+# IDE & OS files
+.DS_Store
+.idea/
+.vscode/
+
+# API keys / Sensitive configs
+*.env
+config.json
+secrets.py
+
+# Test / Output reports
+*.eml
+*.log

@@ -62,6 +62,28 @@ python3 -m phishtinker samples/sample_phish.eml --format markdown -o report.md
 - `assets/` — repository images and documentation assets
 - future SOC domains will appear as additional directories or zipped modules
 
+## New Tool: Network Tinker
+
+Network Tinker is a lightweight network triage and traffic-analysis utility designed for SOC analysts. It provides an easy-to-use GUI and a headless CLI mode for inspecting pcap files, carving artifacts, extracting IOCs, and generating analyst-friendly summaries.
+
+![Network Tinker Screenshot](assets/Network_tinker_tool.png)
+
+Key features:
+
+- `Open PCAP` quick-load and session saving for interactive investigation
+- Protocol and stream breakdowns, top-talkers view, and DNS/HTTP explorers
+- Automatic carving of files and extraction of IOCs (hashes, domains, IPs)
+- Basic Snort rule lab and exportable reports for sharing findings
+
+Quick start:
+
+```bash
+cd network_tinker
+python3 run.py
+```
+
+See [network_tinker](network_tinker/README.md) for full usage and developer notes.
+
 ## Why this repo?
 
 This repo is for building practical SOC utilities that help analysts handle phishing, network threats, endpoints, SIEM ingestion, threat intelligence, forensics, and incident response. The goal is to keep tools lightweight, effective, and easy to use in real analyst workflows.

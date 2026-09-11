@@ -1,0 +1,21 @@
+Date: Mon, 15 Jul 2026 09:12:00 +0000
+From: "IT Support" <support@paypal-secure-login.xyz>
+Reply-To: attacker@totallynotphish.top
+Return-Path: <bounce@totallynotphish.top>
+To: victim@example.com
+Subject: URGENT: Your account will be suspended - verify immediately
+Message-ID: <abc123@totallynotphish.top>
+Authentication-Results: mx.example.com; spf=fail smtp.mailfrom=totallynotphish.top; dkim=none; dmarc=fail
+Received: from 203.0.113.77 by mx.example.com; Mon, 15 Jul 2026 09:11:55 +0000
+Content-Type: text/plain; charset="utf-8"
+
+Dear Customer,
+
+We detected unusual activity on your account. Your account will be suspended
+within 24 hours unless you verify your identity immediately.
+
+Click here to confirm your identity: http://192.0.2.50/verify-login.php
+
+This is a final notice. Act now to avoid restricted access.
+
+IT Support Team

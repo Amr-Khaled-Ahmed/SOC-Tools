@@ -2,7 +2,6 @@
 
 Welcome to the SOC Tools repository — a growing collection of analyst-focused security tools, organized by SOC domain and built to help defenders investigate, triage, and respond faster.
 
-![PhishTinker SOC Analyst Console](assets/PhishTinker_Screenshot.png)
 
 ## Overview
 
@@ -10,13 +9,13 @@ This repo is designed as a central home for SOC tooling and automation. The firs
 
 The repository is planned to include tools across the following SOC categories:
 
-- `01_Phishing_Analysis.zip`
-- `02_Network_Security.zip`
-- `03_Endpoint_Security.zip`
-- `04_SIEM.zip`
-- `05_Threat_Intelligence.zip`
-- `06_Digital_Forensics.zip`
-- `07_Incident_Response.zip`
+- `01_Phishing_Analysis`
+- `02_Network_Security`
+- `03_Endpoint_Security`
+- `04_SIEM`
+- `05_Threat_Intelligence`
+- `06_Digital_Forensics`
+- `07_Incident_Response`
 
 Each part will eventually contain purpose-built tools, scripts, and workflows for that SOC domain.
 
@@ -25,6 +24,7 @@ Each part will eventually contain purpose-built tools, scripts, and workflows fo
 PhishTinker is the first publicly available tool in this repo. It helps SOC analysts rapidly inspect suspicious `.eml` email samples and clearly identify phishing indicators without relying on cloud services by default.
 
 ### PhishTinker features
+![PhishTinker SOC Analyst Console](assets/PhishTinker_Screenshot.png)
 
 - SOC-friendly, polished interface with a tabbed investigation workflow
 - Email overview, sender and recipient analysis, header inspection, and content review
@@ -39,14 +39,14 @@ PhishTinker is the first publicly available tool in this repo. It helps SOC anal
 
 ## Getting Started with PhishTinker
 
-1. Open the `Phishing Tinker Tool` directory.
+1. Open the `Phishing Tinker Tool/phishtinker_project` directory.
 2. Install dependencies and package locally if required.
-3. Run the GUI or CLI as documented in `Phishing Tinker Tool/README.md`.
+3. Run the GUI or CLI as documented in `Phishing Tinker Tool/phishtinker_project/README.md`.
 
 ### Example
 
 ```bash
-cd "Phishing Tinker Tool"
+cd "Phishing Tinker Tool/phishtinker_project"
 python3 -m phishtinker
 ```
 
@@ -83,6 +83,36 @@ python3 run.py
 ```
 
 See [network_tinker](network_tinker/README.md) for full usage and developer notes.
+
+## New Tool: EndpointGuard
+
+EndpointGuard is a lightweight endpoint triage and monitoring tool aimed at SOC analysts. It provides a centralized dashboard and multiple investigation tabs (Processes, Autoruns, Tasks/Cron, Event Logs, Sysmon, Network, Reports, Baseline/Compare) to help quickly assess an endpoint's state and generate analyst-friendly findings.
+
+![Network Tinker Screenshot](assets/EndPointGuard.png)
+
+Key features:
+
+- Interactive dashboard with system summary and session-based findings
+- Process and autorun enumeration with suspicious-flagging
+- Event log and Sysmon parsing where available (Windows), plus basic Linux sysinfo collection
+- Baseline & compare capability to detect configuration or state drift over time
+- Export findings as JSON, Markdown, or a human-readable report for sharing
+- Headless/CLI mode for automated triage and batch processing
+
+Quick start (example):
+
+```bash
+cd EndpointGuard
+python3 main.py
+```
+
+or run from the repository root:
+
+```bash
+python3 EndpointGuard/main.py
+```
+
+See [EndpointGuard/README.md](EndpointGuard/README.md) for full usage and developer notes.
 
 ## Why this repo?
 

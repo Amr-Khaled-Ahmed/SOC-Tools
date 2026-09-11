@@ -1,23 +1,53 @@
-# Python bytecode & cache
+# Byte-compiled / optimized / DLL files (Python Cache)
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Environments & Virtual Envs
-.venv/
+# C extensions
+*.so
+
+# Virtual Environments
 venv/
+.venv/
+env/
+.env/
 ENV/
+env.bak/
+venv.bak/
 
-# IDE & OS files
-.DS_Store
-.idea/
-.vscode/
-
-# API keys / Sensitive configs
+# Environment variables & Sensitive data
+.env
 *.env
-config.json
-secrets.py
+*.pem
+*.key
+*.pcap
+*.pcapng
 
-# Test / Output reports
-*.eml
+# Application Exports & Generated Logs/Data
+EndpointGuard/exports/*
+!EndpointGuard/exports/.gitkeep
 *.log
+*.json_report
+*.html_report
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
+
+# IDEs & Code Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build & Distribution Artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Testing & Coverage
+.coverage
+.pytest_cache/
+htmlcov/

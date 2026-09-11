@@ -1,0 +1,96 @@
+{
+  "processes": {
+    "windows": [
+      {"label": "tasklist (basic)", "cmd": "tasklist"},
+      {"label": "tasklist /v (verbose)", "cmd": "tasklist /v"},
+      {"label": "tasklist with services", "cmd": "tasklist /svc"},
+      {"label": "wmic process list (full)", "cmd": "wmic process get Name,ProcessId,ParentProcessId,ExecutablePath"},
+      {"label": "Get-Process (PowerShell)", "cmd": "powershell -Command \"Get-Process | Select-Object Name,Id,CPU,Path | Format-Table\""}
+    ],
+    "linux": [
+      {"label": "ps aux", "cmd": "ps aux"},
+      {"label": "ps with tree", "cmd": "ps auxf"},
+      {"label": "top snapshot", "cmd": "top -b -n 1 | head -30"}
+    ]
+  },
+  "autoruns": {
+    "windows": [
+      {"label": "Query Run key (HKLM)", "cmd": "reg query \"HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\""},
+      {"label": "Query Run key (HKCU)", "cmd": "reg query \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\""},
+      {"label": "Query RunOnce (HKLM)", "cmd": "reg query \"HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce\""},
+      {"label": "List Startup folder (current user)", "cmd": "dir \"%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\""}
+    ],
+    "linux": [
+      {"label": "List systemd enabled services", "cmd": "systemctl list-unit-files --state=enabled"},
+      {"label": "List /etc/init.d entries", "cmd": "ls -la /etc/init.d/"},
+      {"label": "List user autostart entries", "cmd": "ls -la ~/.config/autostart/ 2>/dev/null || echo 'none found'"}
+    ]
+  },
+  "services": {
+    "windows": [
+      {"label": "net start (running services)", "cmd": "net start"},
+      {"label": "sc query (state=all)", "cmd": "sc query state= all"},
+      {"label": "Get-Service (PowerShell)", "cmd": "powershell -Command \"Get-Service | Format-Table -AutoSize\""},
+      {"label": "Get-Service running only", "cmd": "powershell -Command \"Get-Service | Where-Object {$_.Status -eq 'Running'} | Format-Table\""}
+    ],
+    "linux": [
+      {"label": "systemctl list-units (services)", "cmd": "systemctl list-units --type=service --all"},
+      {"label": "systemctl running services only", "cmd": "systemctl list-units --type=service --state=running"}
+    ]
+  },
+  "tasks_cron": {
+    "windows": [
+      {"label": "schtasks (query all)", "cmd": "schtasks /query /fo LIST /v"},
+      {"label": "schtasks (compact table)", "cmd": "schtasks /query /fo TABLE"}
+    ],
+    "linux": [
+      {"label": "Current user's crontab", "cmd": "crontab -l 2>/dev/null || echo 'no crontab for this user'"},
+      {"label": "System-wide cron.d", "cmd": "ls -la /etc/cron.d/ 2>/dev/null"},
+      {"label": "cron.daily/weekly/monthly", "cmd": "ls -la /etc/cron.daily /etc/cron.weekly /etc/cron.monthly 2>/dev/null"}
+    ]
+  },
+  "eventlogs": {
+    "windows": [
+      {"label": "wevtutil query System (last 20)", "cmd": "wevtutil qe System /c:20 /rd:true /f:text"},
+      {"label": "wevtutil query Security (last 20)", "cmd": "wevtutil qe Security /c:20 /rd:true /f:text"},
+      {"label": "Get-WinEvent System (last 20)", "cmd": "powershell -Command \"Get-WinEvent -LogName System -MaxEvents 20 | Format-Table TimeCreated,Id,Message -Wrap\""},
+      {"label": "Get-WinEvent for Event ID 4624 (logon)", "cmd": "powershell -Command \"Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4624} -MaxEvents 10 | Format-Table TimeCreated,Id -Wrap\""}
+    ],
+    "linux": [
+      {"label": "journalctl (last 30 lines)", "cmd": "journalctl -n 30 --no-pager"},
+      {"label": "auth.log tail (if present)", "cmd": "tail -n 30 /var/log/auth.log 2>/dev/null || echo 'auth.log not found (try journalctl -u sshd)'"}
+    ]
+  },
+  "sysmon": {
+    "windows": [
+      {"label": "Query Sysmon operational log (last 20)", "cmd": "wevtutil qe Microsoft-Windows-Sysmon/Operational /c:20 /rd:true /f:text"},
+      {"label": "Get-WinEvent Sysmon (last 20)", "cmd": "powershell -Command \"Get-WinEvent -LogName 'Microsoft-Windows-Sysmon/Operational' -MaxEvents 20 | Format-Table TimeCreated,Id -Wrap\""},
+      {"label": "Filter Sysmon Event ID 7045 (service install)", "cmd": "powershell -Command \"Get-WinEvent -FilterHashtable @{LogName='System'; Id=7045} -MaxEvents 10 | Format-Table TimeCreated,Message -Wrap\""},
+      {"label": "Check if Sysmon service exists", "cmd": "sc query Sysmon64"}
+    ],
+    "linux": [
+      {"label": "Sysmon for Linux status (if installed)", "cmd": "sysmon -c 2>/dev/null || echo 'Sysmon for Linux not installed'"}
+    ]
+  },
+  "registry": {
+    "windows": [
+      {"label": "Services key (list)", "cmd": "reg query \"HKLM\\SYSTEM\\CurrentControlSet\\Services\""},
+      {"label": "Run key (HKLM)", "cmd": "reg query \"HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\""},
+      {"label": "Winlogon Shell/Userinit", "cmd": "reg query \"HKLM\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\" /v Shell"},
+      {"label": "Export a key (example: Run)", "cmd": "reg export \"HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\" run_export.reg /y"}
+    ],
+    "linux": []
+  },
+  "network": {
+    "windows": [
+      {"label": "netstat (all + PID)", "cmd": "netstat -ano"},
+      {"label": "netstat established only", "cmd": "netstat -ano | findstr ESTABLISHED"},
+      {"label": "Get-NetTCPConnection (PowerShell)", "cmd": "powershell -Command \"Get-NetTCPConnection | Format-Table -AutoSize\""}
+    ],
+    "linux": [
+      {"label": "ss -tunap (modern)", "cmd": "ss -tunap"},
+      {"label": "netstat -tunap (classic, if installed)", "cmd": "netstat -tunap 2>/dev/null || echo 'netstat not installed, use ss'"},
+      {"label": "lsof network files", "cmd": "lsof -i 2>/dev/null || echo 'lsof not installed or needs sudo'"}
+    ]
+  }
+}
